@@ -46,24 +46,24 @@ int main() {
             scanf("%d", &map[i][j]);
         }
     }
-    
+
     int sr, sc, sp, fr, fc, fp;
     cin >> sr >> sc >> sp >> fr >> fc >> fp;
     queue<mInfo> que;
     que.push(mInfo(sr, sc, sp, 0));
     isVisited[sr][sc][sp] = 1;
-    
+
     while (!que.empty()) {
         mInfo m = que.front();
         int qr, qc, qp, qcnt;
         qr = m.cr; qc = m.cc; qp = m.cp; qcnt = m.cnt;
 //        cout << "que pop: " << qr << " " << qc << " "<< qp << " "<< qcnt << endl;
-        
+
         if (qr == fr && qc == fc && qp == fp) {
             cout << qcnt << "\n";
             break;
         }
-        
+
         que.pop();
         //3번까지 움직일 수 있으므로
         for (int k=1; k<=3; k++) {
@@ -82,7 +82,7 @@ int main() {
             que.push(mInfo(nr, nc, qp, qcnt +1));
 //            cout <<"que push: " << nr << " "<< nc << " "<< qp << " "<< qcnt + 1 << endl;
         }
-        
+
         // 방향 전환 --> 동 1 서 2 남 3 북 4
         for (int i=1; i<=4; i++) {
             if (qp == i || opPos(qp) == i) {
@@ -95,6 +95,6 @@ int main() {
             }
         }
     }
-    
+
     return 0;
 }
