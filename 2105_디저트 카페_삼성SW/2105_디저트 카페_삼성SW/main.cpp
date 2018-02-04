@@ -25,13 +25,13 @@ void dfs(int startr, int startc, int r, int c, int ret, int dir) {
         }
         return;
     }
-    
-    
+
+
     for (int i=0; i<4; i++) {
         if (isDirected[i] && i != dir) {
             continue;
         }
-        
+
         int nr = r + dx[i];
         int nc = c + dy[i];
         if (nr >= 0 && nc >= 0 && nr < N && nc < N) {
@@ -40,9 +40,9 @@ void dfs(int startr, int startc, int r, int c, int ret, int dir) {
                     isVisited[nr][nc] = 1;
                     isDirected[i] = 1;
                     isDessert[map[nr][nc]] = 1;
-                    
+
                     dfs(startr, startc, nr, nc, ret+1, i);
-                    
+
                     // 다른 곳으로 갔다가 끝나면 다시 원상태로 복귀시켜줌.
                     if (i != dir) {
                         isDirected[i] = 0;
@@ -50,15 +50,15 @@ void dfs(int startr, int startc, int r, int c, int ret, int dir) {
                     if (startr != nr || startc != nc) {
                         isDessert[map[nr][nc]] = 0;
                     }
-                
+
                     isVisited[nr][nc] = 0;
                 }
             }
         }
-        
+
 
     }
-   
+
 }
 
 
@@ -76,8 +76,8 @@ int main(int argc, const char * argv[]) {
             }
 //            cout << endl;
         }
-        
-        
+
+
         for (int r=0; r<N; r++) {
             for (int c=0; c<N; c++) {
                 for (int i=0; i<4; i++) {
@@ -92,11 +92,12 @@ int main(int argc, const char * argv[]) {
 //                    cout << "nr, nc " << nr << "," << nc << endl;
                     if (nr >= 0 && nc >= 0 && nr < N && nc < N) {
                         if (isDessert[map[nr][nc]] == 0) {
+                            // 방문 안한 디저드 카페일 때만 들어가야함.
                             isDessert[map[nr][nc]] = 1;
-                            //                    cout << "dfs   " << nr << "," << nc << ","  <<", "<< map[nr][nc] << endl;
-                            dfs(r, c, nr, nc, 1, i);
+                            // cout << "dfs   " << nr << "," << nc << ","  <<", "<< map[nr][nc] << endl;
+                            dfs(r, c, nr, nc, 1, i);  // i는 방향. 어짜피 for : 0~3
                             isDessert[map[nr][nc]] = 0;
-                            
+
                         }
 
                     }
@@ -104,8 +105,8 @@ int main(int argc, const char * argv[]) {
             }
         }
         cout << "#" << test << " " << ans << "\n";
-        
+
     }
-    
+
     return 0;
 }
