@@ -27,7 +27,7 @@ int bfs();
 int main(int argc, const char * argv[]) {
     cin >> testNum;
     int N = 0;
-    
+
     while (N < testNum) {
         cin >> h >> w;
         for (int i=0; i<w; i++) {
@@ -52,22 +52,22 @@ int main(int argc, const char * argv[]) {
                 }
             }
         }
-        
+
         bfs();
-        
+
         for (int i=0; i<MAX_SIZE; i++) {
             for (int j=0; j<MAX_SIZE; j++) {
                 visit[i][j] = 0;
                 map[i][j] = NULL;
             }
         }
-        
+
         while( !que.empty() ) que.pop();
         while( !fireque.empty() ) fireque.pop();
-        
+
         N++;
     }
-    
+
     return 0;
 }
 
@@ -75,7 +75,7 @@ int main(int argc, const char * argv[]) {
 int bfs() {
     int result = 0;
     int escape = 0;
-    
+
     while (!que.empty()) {
         result++;
         int size = (int)que.size();
@@ -89,24 +89,24 @@ int bfs() {
             for (int i=0 ; i<4; i++) {
                 int next_row = row + dx[i];
                 int next_col = col + dy[i];
-                
+
                 if (next_row >= w || next_row < 0 || next_col >= h || next_col < 0) {
                     escape = 1;
                     break;
                 }
-                
+
                 if ((map[next_row][next_col] == '.' && visit[next_row][next_col] != 1)) {
                     visit[next_row][next_col] = 1;
                     que.push(make_pair(next_row, next_col));
                 }
-                
+
             }
         }
-        
+
         if (escape) {
             break;
         }
-        
+
         size =fireque.size();
         for (int q=0; q<size; q++) {
             int row = fireque.front().first;
@@ -121,16 +121,15 @@ int bfs() {
                 if (map[next_row][next_col] == '.') {
                     map[next_row][next_col] = '*';
                     fireque.push(make_pair(next_row, next_col));
-                    }
                 }
             }
         }
+    }
 
     if(escape)
         cout << result << "\n";
     else
         cout <<"IMPOSSIBLE\n";
-    
+
     return 0;
 }
-
